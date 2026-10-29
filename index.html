@@ -1,0 +1,255 @@
+<title>BioPath HCE Enterprise</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: columna editorial ancha, bandas alternas; el recorrido de la atención y el cálculo de copago son los momentos propios del producto. */
+:root{
+  --bg:#f5f8f8; --band:#e9f0f0; --card:#ffffff; --ink:#0c2430; --mut:#4b6470; --line:#cfdcdc;
+  --accent:#0b7a84; --accent-ink:#ffffff; --deep:#0c2430; --deep-ink:#e8f3f3; --ok:#18794e; --warn:#a15c00;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif; --body:"Source Sans 3","Segoe UI",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a171d;--band:#0f2129;--card:#13292f;--ink:#e6f1f1;--mut:#9fb5bb;--line:#24404a;--accent:#3cc3cf;--accent-ink:#04191d;--deep:#06110f;--deep-ink:#e6f1f1;--ok:#5fd39a;--warn:#f0b35a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a171d;--band:#0f2129;--card:#13292f;--ink:#e6f1f1;--mut:#9fb5bb;--line:#24404a;--accent:#3cc3cf;--accent-ink:#04191d;--deep:#06110f;--deep-ink:#e6f1f1;--ok:#5fd39a;--warn:#f0b35a;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:17px/1.6 var(--body)}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.3rem,6vw,4.1rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:700;letter-spacing:-.015em}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0}
+a{color:inherit}
+.in{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band{padding-block:72px}
+.band.alt{background:var(--band)}
+.band.deep{background:var(--deep);color:var(--deep-ink)}
+.eyebrow{font:500 .78rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.lead{color:var(--mut);font-size:1.15rem;max-width:62ch}
+.deep .lead{color:#a9c4c8}
+.head{display:grid;gap:12px;margin-bottom:36px}
+.btn{display:inline-block;padding:14px 26px;border-radius:10px;background:var(--accent);color:var(--accent-ink);font-weight:600;text-decoration:none;border:2px solid var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.btn:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.btn.out{background:transparent;color:inherit;border-color:currentColor}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.top .in{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px}
+nav.top b{font-family:var(--display);font-size:1.1rem}
+nav.top .links{display:flex;gap:20px;align-items:center}
+nav.top .links a.l{text-decoration:none;color:var(--mut);font-size:.95rem}
+nav.top .btn{padding:9px 18px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.hero{padding-block:64px 72px}
+.hero .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.hero .lead{margin:22px 0 30px}
+.fine{font-size:.88rem;color:var(--mut);margin-top:14px}
+.min{min-width:0}
+/* tarjeta de cálculo */
+.calc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 10px 30px rgba(12,36,48,.1)}
+.calc .tag{font:500 .72rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.calc table{width:100%;border-collapse:collapse;font-size:.95rem;margin-top:10px}
+.calc td{padding:7px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+.calc td:last-child{text-align:right;font:500 .92rem var(--mono);white-space:nowrap;padding-left:10px}
+.calc tr.t td{border-bottom:0;font-weight:600}
+.calc .res{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--band);font-size:.92rem}
+.calc .res b{color:var(--accent)}
+.sample{font-size:.8rem;color:var(--mut);margin-top:10px}
+/* recorrido */
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid #28464d;border-radius:14px;overflow:hidden}
+.flow li{padding:22px 20px;border-right:1px solid #28464d;border-bottom:1px solid #28464d;min-width:0}
+.flow li:nth-child(4n){border-right:0}
+.flow li:nth-last-child(-n+4){border-bottom:0}
+.flow b{display:block;font-family:var(--display);font-size:1.05rem;margin-bottom:4px}
+.flow span{font-size:.93rem;color:#a9c4c8}
+.flow i{font:500 .72rem var(--mono);color:#7fd6de;font-style:normal;display:block;margin-bottom:8px;letter-spacing:.08em}
+/* módulos */
+.mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.mod{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;min-width:0}
+.mod h3{margin-bottom:8px}
+.mod p{color:var(--mut);font-size:.97rem}
+.mod .k{display:block;margin-top:12px;font:500 .74rem var(--mono);color:var(--accent);letter-spacing:.04em}
+/* normativa */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:26px;min-width:0}
+.box h3{margin-bottom:14px}
+.box ul{margin:0;padding:0;list-style:none;display:grid;gap:11px}
+.box li{padding-left:26px;position:relative;font-size:.98rem}
+.box li::before{position:absolute;left:0;top:0;font-weight:700}
+.box.yes li::before{content:"✓";color:var(--ok)}
+.box.no li::before{content:"–";color:var(--warn)}
+.box.no{border-style:dashed}
+/* roles */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.tw table{border-collapse:collapse;width:100%;min-width:640px;font-size:.93rem}
+.tw th,.tw td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:center}
+.tw th:first-child,.tw td:first-child{text-align:left}
+.tw th{font-family:var(--display);font-size:.88rem;background:var(--band)}
+.tw tr:last-child td{border-bottom:0}
+.y{color:var(--ok);font-weight:700}.n{color:var(--mut)}
+/* planes */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;display:grid;gap:14px;align-content:start;min-width:0}
+.plan.hl{border:2px solid var(--accent)}
+.plan ul{margin:0;padding-left:18px;color:var(--mut);font-size:.96rem;display:grid;gap:6px}
+.plan .pr{font:700 1.7rem var(--display)}.plan .pr small{font:500 .8rem var(--mono);color:var(--mut)}.two-plans{max-width:760px}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600}
+details p{margin-top:10px;color:var(--mut)}
+.cta{text-align:left}
+footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid var(--line)}
+@media(max-width:860px){
+  .hero .grid,.two{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .flow li:nth-child(4n){border-right:1px solid #28464d}.flow li:nth-child(2n){border-right:0}
+  .flow li:nth-last-child(-n+4){border-bottom:1px solid #28464d}.flow li:nth-last-child(-n+2){border-bottom:0}
+  nav.top .links a.l{display:none}
+  .band{padding-block:52px}
+}
+@media(max-width:480px){.flow{grid-template-columns:1fr}.flow li{border-right:0!important;border-bottom:1px solid #28464d!important}.flow li:last-child{border-bottom:0!important}}
+@media(prefers-reduced-motion:no-preference){.btn{transition:filter .15s}}
+</style>
+
+<nav class="top"><div class="in"><b>BioPath HCE Enterprise</b>
+ <div class="links"><a class="l" href="#recorrido">Recorrido</a><a class="l" href="#modulos">Módulos</a><a class="l" href="#normativa">Normativa</a><a class="l" href="#planes">Planes HCE</a><a class="l" href="#diabetes">Diabetes</a><a class="btn" href="https://demo.biopathsentinel.online/registro" target="_blank" rel="noopener">Solicitar demo</a></div></div></nav>
+
+<header class="hero"><div class="in grid">
+ <div class="min">
+  <p class="eyebrow">Historia clínica electrónica · Colombia</p>
+  <h1 class="mt">La historia clínica, la agenda y la facturación de tu IPS en un solo lugar.</h1>
+  <p class="lead">HiSalud conecta al paciente, la consulta, las órdenes, el consentimiento y la factura. Calcula la cuota moderadora o el copago, y deja listo el RIPS en JSON. Para consultorios y clínicas de medicina general, odontología y hospitalización.</p>
+  <div class="row"><a class="btn" href="https://demo.biopathsentinel.online/registro" target="_blank" rel="noopener">Solicitar una demostración</a><a class="btn out" href="#recorrido">Ver cómo funciona</a></div>
+  <p class="fine">La demo usa datos ficticios. Solo necesitas un correo para entrar.</p>
+ </div>
+ <div class="calc min" aria-label="Ejemplo de cálculo de cuota moderadora">
+  <p class="tag">Ejemplo · factura de consulta</p>
+  <table>
+   <tr><td>890203 · Consulta odontología general</td><td>$ 40.000</td></tr>
+   <tr><td>232102 · Obturación con resina</td><td>$ 75.000</td></tr>
+   <tr class="t"><td>Total de la factura</td><td>$ 115.000</td></tr>
+   <tr><td>Régimen contributivo · cotizante</td><td>Cuota</td></tr>
+   <tr><td>Cuota moderadora de la consulta</td><td>$ 5.000</td></tr>
+   <tr class="t"><td>A cargo de la EPS</td><td>$ 110.000</td></tr>
+  </table>
+  <p class="res">El sistema propone el valor según el Decreto 1652 de 2022 y la circular anual. <b>Tú confirmas o ajustas</b>, con motivo si hay exención.</p>
+  <p class="sample">Paciente, valores y tarifas de ejemplo.</p>
+ </div>
+</div></header>
+
+<section class="band alt"><div class="in">
+ <div class="head"><p class="eyebrow">El problema</p><h2>Cuando cada área usa su propia herramienta, el paciente se repite en todas.</h2></div>
+ <div class="mods">
+  <div class="mod"><h3>Datos que se digitan tres veces</h3><p>Recepción registra al paciente, el consultorio lo vuelve a escribir y facturación lo corrige al final.</p></div>
+  <div class="mod"><h3>Notas que se pueden alterar</h3><p>Una historia clínica no debe cambiar en silencio. Aquí las correcciones quedan como adenda visible.</p></div>
+  <div class="mod"><h3>Copago calculado a mano</h3><p>Topes por evento y por año, regímenes y exenciones. Es fácil equivocarse y cuesta ordenar las cuentas después.</p></div>
+  <div class="mod"><h3>Consentimientos en carpetas</h3><p>Firmados en papel y sin trazabilidad, o ausentes cuando se necesitan.</p></div>
+ </div>
+</div></section>
+
+<section class="band deep" id="recorrido"><div class="in">
+ <div class="head"><p class="eyebrow" style="color:#7fd6de">Recorrido de una atención</p><h2>Un paciente, una historia, del registro a la factura.</h2><p class="lead">Cada paso usa lo que ya se registró en el anterior.</p></div>
+ <ol class="flow">
+  <li><i>PACIENTE</i><b>Registro</b><span>Identificación, EPS y régimen. De aquí salen el encabezado de impresión y el copago.</span></li>
+  <li><i>AGENDA</i><b>Cita y encuentro</b><span>La cita se convierte en la atención clínica, sin volver a escribir datos.</span></li>
+  <li><i>CIE-10 · CUPS</i><b>Consulta y órdenes</b><span>Diagnóstico y órdenes con catálogos oficiales. Laboratorio, imágenes, fórmula y remisión.</span></li>
+  <li><i>RES. 1995/1999</i><b>Firma de la nota</b><span>El profesional firma con trazabilidad. Lo que cambia después entra como adenda.</span></li>
+  <li><i>CONSENTIMIENTO</i><b>Autorización</b><span>Firma en pantalla o en papel con foto o PDF del documento firmado.</span></li>
+  <li><i>FACTURACIÓN</i><b>Factura y copago</b><span>Las atenciones llegan a la factura. Se calcula la cuota moderadora o el copago.</span></li>
+  <li><i>RIPS</i><b>Archivo JSON</b><span>Se genera con el valor por servicio y se indica qué dato falta antes de enviarlo.</span></li>
+  <li><i>PACIENTE</i><b>Portal</b><span>El paciente consulta sus citas, notas firmadas y, en odontología, su plan y procedimientos.</span></li>
+ </ol>
+</div></section>
+
+<section class="band" id="modulos"><div class="in">
+ <div class="head"><p class="eyebrow">Módulos</p><h2>Lo que incluye, en una sola plataforma.</h2></div>
+ <div class="mods">
+  <div class="mod"><h3>Historia clínica</h3><p>Encuentros, signos vitales, antecedentes, diagnósticos y órdenes. Firma y adenda. Impresión con encabezado de la IPS y registro de entrega de copia.</p><span class="k">CIE-10 · CUPS</span></div>
+  <div class="mod"><h3>Odontología</h3><p>Odontograma con numeración FDI, plan de tratamiento, procedimientos realizados y órdenes y remisiones odontológicas.</p><span class="k">ODONTOGRAMA · PLAN</span></div>
+  <div class="mod"><h3>Hospitalización</h3><p>Ingreso, cama, evoluciones médicas y de enfermería, órdenes, administración de medicamentos, signos vitales, interconsultas, egreso y epicrisis. Las notas firmadas no se modifican. Incluido en el plan Hospital / clínica grande.</p><span class="k">EPISODIOS · FIRMA · RDA</span></div>
+  <div class="mod"><h3>Agenda de citas</h3><p>Citas por profesional y paciente, conectadas con el encuentro clínico.</p><span class="k">CITAS</span></div>
+  <div class="mod"><h3>Consentimientos</h3><p>Plantillas modelo para procedimiento, datos personales, telemedicina, fotografía y transfusión. Firma digital o en papel, con revocación.</p><span class="k">SELLO DE INTEGRIDAD</span></div>
+  <div class="mod"><h3>Facturación y copago</h3><p>Facturas por pagador y contrato, cuota moderadora y copago con topes, exenciones con motivo y valor por servicio en el RIPS.</p><span class="k">DECRETO 1652/2022</span></div>
+  <div class="mod"><h3>Farmacia</h3><p>Fórmulas y dispensación conectadas con la atención del paciente.</p><span class="k">FÓRMULAS</span></div>
+  <div class="mod"><h3>Laboratorio e imágenes</h3><p>Órdenes con código CUPS y seguimiento de resultados por paciente.</p><span class="k">ÓRDENES · RESULTADOS</span></div>
+  <div class="mod"><h3>Portal del paciente</h3><p>El paciente ve su información con su propio usuario. Cada consulta queda registrada y los datos se pueden exportar en FHIR R4.</p><span class="k">FHIR R4</span></div>
+  <div class="mod"><h3>Usuarios y roles</h3><p>Administrador, médico u odontólogo, enfermería, recepción y auditor. Cada uno ve y hace solo lo que le corresponde.</p><span class="k">RBAC</span></div>
+ </div>
+</div></section>
+
+<section class="band alt" id="normativa"><div class="in">
+ <div class="head"><p class="eyebrow">Normativa, sin letra pequeña</p><h2>Qué hace HiSalud y qué sigue haciendo tu IPS.</h2><p class="lead">Preferimos decirte desde el principio dónde termina el software, para que puedas planear tu operación.</p></div>
+ <div class="two">
+  <div class="box yes"><h3>HiSalud hace</h3><ul>
+   <li>Historia clínica con firma electrónica interna con trazabilidad y adendas para correcciones.</li>
+   <li>Catálogos oficiales CIE-10 y CUPS para diagnósticos y órdenes.</li>
+   <li>Cálculo de cuota moderadora y copago con topes y exenciones documentadas.</li>
+   <li>Preparación de la factura y generación del RIPS en JSON.</li>
+   <li>Consentimientos con sello de integridad, revocación y evidencia en papel.</li>
+   <li>Datos separados por clínica y registro de quién hizo qué.</li></ul></div>
+  <div class="box no"><h3>Sigue a cargo de tu IPS</h3><ul>
+   <li>Expedir la factura electrónica de venta en la DIAN o con tu proveedor tecnológico. En HiSalud registras su número y CUFE.</li>
+   <li>Enviar el RIPS por el mecanismo del Ministerio y registrar el CUV.</li>
+   <li>Revisar y ajustar con tu asesor jurídico los textos modelo de consentimientos.</li>
+   <li>Cargar tus tarifas, contratos, NIT y código REPS.</li>
+   <li>Cumplir las obligaciones de habilitación y de tratamiento de datos de tu institución.</li></ul></div>
+ </div>
+</div></section>
+
+<section class="band"><div class="in">
+ <div class="head"><p class="eyebrow">Roles</p><h2>Cada persona ve lo que le corresponde.</h2></div>
+ <div class="tw"><table>
+  <tr><th>Función</th><th>Administrador</th><th>Médico / Odontólogo</th><th>Enfermería</th><th>Recepción</th><th>Auditor</th></tr>
+  <tr><td>Ver la historia clínica</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="n">–</td><td class="y">✓</td></tr>
+  <tr><td>Registrar encuentros y órdenes</td><td class="n">–</td><td class="y">✓</td><td class="y">✓</td><td class="n">–</td><td class="n">–</td></tr>
+  <tr><td>Firmar la nota clínica</td><td class="n">–</td><td class="y">✓</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+  <tr><td>Agendar citas</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="n">–</td></tr>
+  <tr><td>Registrar consentimientos</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="n">–</td></tr>
+  <tr><td>Facturar y definir el copago</td><td class="y">✓</td><td class="n">–</td><td class="n">–</td><td class="y">✓</td><td class="n">–</td></tr>
+  <tr><td>Anular una factura</td><td class="y">✓</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+ </table></div>
+ <p class="fine">Resumen de las funciones principales. El detalle completo se muestra en la demostración.</p>
+</div></section>
+
+<section class="band alt" id="planes"><div class="in">
+ <div class="head"><p class="eyebrow">Planes · BioPath HCE Enterprise</p><h2>Un precio mensual según el tamaño de tu equipo.</h2><p class="lead">Precios en pesos colombianos por mes. Los tres planes incluyen los módulos de la plataforma; Hospitalización va solo en el plan Hospital / clínica grande. Antes de suscribirte puedes pedir la demostración.</p></div>
+ <div class="plans">
+  <div class="plan"><h3>Clínica pequeña</h3><p class="pr">$1.000.000 <small>COP / mes</small></p><ul><li>Hasta 5 usuarios</li></ul><a class="btn out" href="https://payco.link/df9f7104-89c2-48a2-989a-14fdf97d5d22" target="_blank" rel="noopener">Suscribirse</a></div>
+  <div class="plan hl"><span class="eyebrow">Más popular</span><h3>Clínica mediana</h3><p class="pr">$1.500.000 <small>COP / mes</small></p><ul><li>Hasta 15 usuarios</li></ul><a class="btn" href="https://payco.link/f2cd3659-18ac-4825-a72b-9a8871cfb59d" target="_blank" rel="noopener">Suscribirse</a></div>
+  <div class="plan"><h3>Hospital / clínica grande</h3><p class="pr">$1.800.000 <small>COP / mes</small></p><ul><li>Usuarios ilimitados</li><li>Incluye módulo de Hospitalización</li></ul><a class="btn out" href="https://payco.link/b0cccf0c-7b58-446c-abff-bc534ff0bf0b" target="_blank" rel="noopener">Suscribirse</a></div>
+ </div>
+ <p class="fine">¿Prefieres verlo antes? <a href="https://demo.biopathsentinel.online/registro" target="_blank" rel="noopener">Solicita la demostración</a>. ¿Ya tienes cuenta? <a href="https://hisalud-clinic-v3.biopathsentinel.online/" target="_blank" rel="noopener">Entrar a HCE Enterprise</a>.</p>
+</div></section>
+
+<section class="band" id="diabetes"><div class="in">
+ <div class="head"><p class="eyebrow">Tamizaje predictivo</p><h2>HiSalud Diabetes</h2><p class="lead">Asistente de tamizaje de riesgo diabético con inteligencia artificial. Ingresas los factores clave, obtienes una estimación estadística del riesgo y guardas el historial de tu clínica y lo descargas cuando quieras. Es una herramienta de apoyo: no diagnostica ni reemplaza el criterio del profesional.</p></div>
+ <div class="plans two-plans">
+  <div class="plan"><h3>Personal de salud</h3><p class="mut">Médico, enfermero o nutricionista</p><p class="pr">$90.000 <small>COP / mes</small></p><ul><li>Acceso individual al portal interactivo</li><li>Datos de tu cuenta separados de los de otras clínicas</li><li>Historial de tamizajes con descarga en CSV</li></ul><a class="btn" href="https://payco.link/dd640d9e-b632-48ee-b674-724387ee361a" target="_blank" rel="noopener">Suscribirse</a></div>
+  <div class="plan hl"><span class="eyebrow">Recomendado</span><h3>Clínicas</h3><p class="mut">Pequeñas y grandes</p><p class="pr">$270.000 <small>COP / mes</small></p><ul><li>Los mismos beneficios, para equipos con más personas</li><li>Usuarios para tu equipo (se solicitan por correo)</li><li>Historial de la institución con descarga en CSV</li></ul><a class="btn" href="https://payco.link/ed4a5150-595d-42d8-8f4e-1362fe84a162" target="_blank" rel="noopener">Suscribirse</a></div>
+ </div>
+ <p class="fine">¿Ya tienes cuenta? <a href="https://diabetes2-clinic.biopathsentinel.online/" target="_blank" rel="noopener">Entrar a HiSalud Diabetes</a>.</p>
+</div></section>
+
+<section class="band alt"><div class="in">
+ <div class="head"><p class="eyebrow">Ecosistema BioPath</p><h2>Más herramientas, de acceso libre.</h2><p class="lead">BioPath Sentinel AI es un portal informativo y gratuito de vigilancia genómica y salud pública, con BioWater (calidad del agua) y WaterNor (alerta temprana de norovirus). No requiere suscripción.</p></div>
+ <div class="row"><a class="btn out" href="https://biopath.biopathsentinel.online/" target="_blank" rel="noopener">BioPath Sentinel AI</a><a class="btn out" href="https://biowater.biopathsentinel.online/" target="_blank" rel="noopener">BioWater</a><a class="btn out" href="https://waternor.biopathsentinel.online/" target="_blank" rel="noopener">WaterNor</a></div>
+ <p class="fine">Próximamente: HiSalud Hipertensión y HiSalud Metabólica.</p>
+</div></section>
+
+<section class="band"><div class="in">
+ <div class="head"><p class="eyebrow">Preguntas frecuentes</p><h2>Lo que suelen preguntar antes de empezar.</h2></div>
+ <div style="max-width:780px">
+  <details><summary>¿HiSalud expide la factura electrónica de venta?</summary><p>No. La factura electrónica se expide en la DIAN (servicio gratuito) o con tu proveedor tecnológico. HiSalud prepara la factura, calcula lo que paga el paciente, genera el RIPS y registra el número y el CUFE que te entregue la DIAN.</p></details>
+  <details><summary>¿La firma de la nota clínica es una firma digital certificada?</summary><p>Es una firma electrónica interna con trazabilidad: queda quién firmó, con qué registro profesional, cuándo y desde dónde, con un sello de integridad. No es una firma digital con certificado de entidad certificadora.</p></details>
+  <details><summary>¿Qué pasa si hay que corregir una nota ya firmada?</summary><p>La nota firmada no se modifica. Se agrega una adenda con la corrección y ambas quedan visibles en la historia.</p></details>
+  <details><summary>¿Incluye hospitalización?</summary><p>Sí. El módulo de hospitalización cubre el ingreso, la cama, las evoluciones médicas y de enfermería con firma, las órdenes, la administración de medicamentos, los signos vitales, las interconsultas y el egreso con epicrisis. También recoge los datos del paciente que pide el Resumen Digital de Atención en Salud (RDA). El envío al Ministerio depende de la habilitación de cada institución. Va incluido en el plan Hospital / clínica grande.</p></details>
+  <details><summary>¿Puedo usarlo solo para odontología?</summary><p>Sí. Odontología funciona con odontograma, plan de tratamiento, procedimientos, consentimientos, órdenes y facturación. También puedes usar medicina general, o ambas.</p></details>
+  <details><summary>¿Cómo se manejan los datos de mis pacientes?</summary><p>Cada clínica tiene sus datos separados de las demás y el sistema registra quién hizo cada acción. El tratamiento de datos debe cumplir la Ley 1581 de 2012 y tu propia política de privacidad.</p></details>
+  <details><summary>¿Puedo probarlo antes de decidir?</summary><p>Sí. Solicita la demostración con tu correo, crea tu usuario y explora una clínica con datos ficticios. No registres información de pacientes reales en la demo.</p></details>
+ </div>
+</div></section>
+
+<section class="band deep"><div class="in cta">
+ <h2>Mira HiSalud con el caso de tu clínica.</h2>
+ <p class="lead" style="margin:14px 0 26px">Solicita la demostración, entra a la zona privada con tu usuario y te contactamos para acordar el horario.</p>
+ <div class="row"><a class="btn" href="https://demo.biopathsentinel.online/registro" target="_blank" rel="noopener">Solicitar demostración</a><span>o escríbenos a <b>biopathsentinel@gmail.com</b></span></div>
+</div></section>
+
+<footer><div class="in">© 2026 BioPath-Sentinel AI · Santa Marta, Colombia · biopathsentinel@gmail.com. HiSalud es una herramienta de apoyo y gestión clínica; no reemplaza el criterio del profesional de salud. Los valores y datos mostrados en esta página son ejemplos.</div></footer>
