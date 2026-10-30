@@ -168,14 +168,16 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
  <div class="mods">
   <div class="mod"><h3>Historia clínica</h3><p>Encuentros, signos vitales, antecedentes, diagnósticos y órdenes. Firma y adenda. Impresión con encabezado de la IPS y registro de entrega de copia.</p><span class="k">CIE-10 · CUPS</span></div>
   <div class="mod"><h3>Odontología</h3><p>Odontograma con numeración FDI, plan de tratamiento, procedimientos realizados y órdenes y remisiones odontológicas.</p><span class="k">ODONTOGRAMA · PLAN</span></div>
-  <div class="mod"><h3>Hospitalización</h3><p>Ingreso, cama, evoluciones médicas y de enfermería, órdenes, administración de medicamentos, signos vitales, interconsultas, egreso y epicrisis. Las notas firmadas no se modifican. Incluido en el plan Hospital / clínica grande.</p><span class="k">EPISODIOS · FIRMA · RDA</span></div>
+  <div class="mod"><h3>Hospitalización</h3><p>Ingreso, cama, evoluciones médicas y de enfermería, órdenes, administración de medicamentos por enfermería o médico, signos vitales, interconsultas, egreso y epicrisis. Las órdenes de laboratorio, imágenes y procedimientos usan el catálogo CUPS y el egreso incluye la fórmula al paciente. Las notas firmadas no se modifican. Incluido en el plan Hospital / clínica grande.</p><span class="k">EPISODIOS · FIRMA · RDA</span></div>
   <div class="mod"><h3>Agenda de citas</h3><p>Citas por profesional y paciente, conectadas con el encuentro clínico.</p><span class="k">CITAS</span></div>
   <div class="mod"><h3>Consentimientos</h3><p>Plantillas modelo para procedimiento, datos personales, telemedicina, fotografía y transfusión. Firma digital o en papel, con revocación.</p><span class="k">SELLO DE INTEGRIDAD</span></div>
   <div class="mod"><h3>Facturación y copago</h3><p>Facturas por pagador y contrato, cuota moderadora y copago con topes, exenciones con motivo y valor por servicio en el RIPS.</p><span class="k">DECRETO 1652/2022</span></div>
-  <div class="mod"><h3>Farmacia</h3><p>Fórmulas y dispensación conectadas con la atención del paciente.</p><span class="k">FÓRMULAS</span></div>
+  <div class="mod"><h3>Farmacia</h3><p>Catálogo, lotes y dispensación conectados con la atención del paciente. Cada medicamento puede llevar su código IUM del Ministerio y, al entregarlo, se puede reportar la dispensación.</p><span class="k">FÓRMULAS · IUM</span></div>
   <div class="mod"><h3>Laboratorio e imágenes</h3><p>Órdenes con código CUPS y seguimiento de resultados por paciente.</p><span class="k">ÓRDENES · RESULTADOS</span></div>
   <div class="mod"><h3>Portal del paciente</h3><p>El paciente ve su información con su propio usuario. Cada consulta queda registrada y los datos se pueden exportar en FHIR R4.</p><span class="k">FHIR R4</span></div>
-  <div class="mod"><h3>Usuarios y roles</h3><p>Administrador, médico u odontólogo, enfermería, recepción y auditor. Cada uno ve y hace solo lo que le corresponde.</p><span class="k">RBAC</span></div>
+  <div class="mod"><h3>Usuarios y roles</h3><p>Administrador, médico u odontólogo, enfermería, recepción y auditor. Cada uno ve y hace solo lo que le corresponde. Cada persona cambia su contraseña y puede recuperarla por correo.</p><span class="k">RBAC</span></div>
+  <div class="mod"><h3>Interoperabilidad con el Ministerio</h3><p>Arma el Resumen Digital de Atención (RDA) de consultas y hospitalizaciones en FHIR R4, con vista previa y registro de cada envío, y reporta la dispensación de medicamentos. El envío se hace con las credenciales que el Ministerio entrega a tu institución.</p><span class="k">IHCE · RES. 1888/2025</span></div>
+  <div class="mod"><h3>Catálogos oficiales</h3><p>CIE-10, CUPS, medicamentos (CUMS e IUM) y división político-administrativa (DIVIPOLA). Se elige de la lista, sin escribir códigos a mano.</p><span class="k">CIE-10 · CUPS · CUMS · IUM</span></div>
  </div>
 </div></section>
 
@@ -187,11 +189,13 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
    <li>Catálogos oficiales CIE-10 y CUPS para diagnósticos y órdenes.</li>
    <li>Cálculo de cuota moderadora y copago con topes y exenciones documentadas.</li>
    <li>Preparación de la factura y generación del RIPS en JSON.</li>
+   <li>Preparación del RDA en FHIR R4 y envío al Ministerio cuando tu institución cuenta con sus credenciales del IHCE.</li>
    <li>Consentimientos con sello de integridad, revocación y evidencia en papel.</li>
    <li>Datos separados por clínica y registro de quién hizo qué.</li></ul></div>
   <div class="box no"><h3>Sigue a cargo de tu IPS</h3><ul>
    <li>Expedir la factura electrónica de venta en la DIAN o con tu proveedor tecnológico. En HiSalud registras su número y CUFE.</li>
    <li>Enviar el RIPS por el mecanismo del Ministerio y registrar el CUV.</li>
+   <li>Tramitar con el Ministerio la habilitación y las credenciales del IHCE: sin ellas el RDA se prepara, pero no se envía.</li>
    <li>Revisar y ajustar con tu asesor jurídico los textos modelo de consentimientos.</li>
    <li>Cargar tus tarifas, contratos, NIT y código REPS.</li>
    <li>Cumplir las obligaciones de habilitación y de tratamiento de datos de tu institución.</li></ul></div>
@@ -244,6 +248,7 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
   <details><summary>¿HiSalud expide la factura electrónica de venta?</summary><p>No. La factura electrónica se expide en la DIAN (servicio gratuito) o con tu proveedor tecnológico. HiSalud prepara la factura, calcula lo que paga el paciente, genera el RIPS y registra el número y el CUFE que te entregue la DIAN.</p></details>
   <details><summary>¿La firma de la nota clínica es una firma digital certificada?</summary><p>Es una firma electrónica interna con trazabilidad: queda quién firmó, con qué registro profesional, cuándo y desde dónde, con un sello de integridad. No es una firma digital con certificado de entidad certificadora.</p></details>
   <details><summary>¿Qué pasa si hay que corregir una nota ya firmada?</summary><p>La nota firmada no se modifica. Se agrega una adenda con la corrección y ambas quedan visibles en la historia.</p></details>
+  <details><summary>¿Se conecta con el Ministerio de Salud (IHCE)?</summary><p>HiSalud prepara el Resumen Digital de Atención (RDA) en el formato FHIR que pide la Resolución 1888 de 2025, para consultas, hospitalizaciones y dispensación de medicamentos. Lo ves en vista previa antes de enviarlo y queda el registro de cada envío. Para enviar necesitas las credenciales que el Ministerio entrega a cada institución: tu IPS las tramita y se guardan una sola vez en HiSalud.</p></details>
   <details><summary>¿Incluye hospitalización?</summary><p>Sí. El módulo de hospitalización cubre el ingreso, la cama, las evoluciones médicas y de enfermería con firma, las órdenes, la administración de medicamentos, los signos vitales, las interconsultas y el egreso con epicrisis. También recoge los datos del paciente que pide el Resumen Digital de Atención en Salud (RDA). El envío al Ministerio depende de la habilitación de cada institución. Va incluido en el plan Hospital / clínica grande.</p></details>
   <details><summary>¿Puedo usarlo solo para odontología?</summary><p>Sí. Odontología funciona con odontograma, plan de tratamiento, procedimientos, consentimientos, órdenes y facturación. También puedes usar medicina general, o ambas.</p></details>
   <details><summary>¿Cómo se manejan los datos de mis pacientes?</summary><p>Cada clínica tiene sus datos separados de las demás y el sistema registra quién hizo cada acción. El tratamiento de datos debe cumplir la Ley 1581 de 2012 y tu propia política de privacidad.</p></details>
@@ -258,3 +263,4 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
 </div></section>
 
 <footer><div class="in">© 2026 BioPath-Sentinel AI · Santa Marta, Colombia · biopathsentinel@gmail.com. HiSalud es una herramienta de apoyo y gestión clínica; no reemplaza el criterio del profesional de salud. Los valores y datos mostrados en esta página son ejemplos.</div></footer>
+ 
