@@ -35,6 +35,8 @@ a{color:inherit}
 .btn:hover{filter:brightness(1.08)}
 .btn:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .btn.out{background:transparent;color:inherit;border-color:currentColor}
+.btn.go{background:linear-gradient(135deg,var(--accent),var(--ok));border-color:transparent;box-shadow:0 6px 18px rgba(11,122,132,.3)}
+.btn.off{opacity:.55;cursor:not-allowed;text-align:center}
 .row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
 nav.top .in{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px}
@@ -91,7 +93,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .tw tr:last-child td{border-bottom:0}
 .y{color:var(--ok);font-weight:700}.n{color:var(--mut)}
 /* planes */
-.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:18px}
 .plan{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;display:grid;gap:14px;align-content:start;min-width:0}
 .plan.hl{border:2px solid var(--accent)}
 .plan ul{margin:0;padding-left:18px;color:var(--mut);font-size:.96rem;display:grid;gap:6px}
@@ -109,19 +111,19 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
   nav.top .links a.l{display:none}
   .band{padding-block:52px}
 }
+@media(max-width:520px){nav.top .links a.nd{display:none}}
+@media(min-width:861px){.plan .pr{font-size:1.45rem}.plan .pr small{display:block;margin-top:2px}}
 @media(max-width:480px){.flow{grid-template-columns:1fr}.flow li{border-right:0!important;border-bottom:1px solid #28464d!important}.flow li:last-child{border-bottom:0!important}}
 @media(prefers-reduced-motion:no-preference){.btn{transition:filter .15s}}
 </style>
-
 <nav class="top"><div class="in"><b>BioPath HCE Enterprise</b>
- <div class="links"><a class="l" href="#recorrido">Recorrido</a><a class="l" href="#modulos">Módulos</a><a class="l" href="#normativa">Normativa</a><a class="l" href="#planes">Planes HCE</a><a class="l" href="#diabetes">Diabetes</a><a class="btn" href="https://demo.biopathsentinel.online/registro" target="_blank" rel="noopener">Solicitar demo</a></div></div></nav>
-
+ <div class="links"><a class="l" href="#recorrido">Recorrido</a><a class="l" href="#modulos">Módulos</a><a class="l" href="#normativa">Normativa</a><a class="l" href="#planes">Planes HCE</a><a class="l" href="#diabetes">Diabetes</a><a class="btn out nd" href="https://demo.biopathsentinel.org/registro" target="_blank" rel="noopener">Solicitar demo</a><a class="btn go" href="https://biopathsentinel.org/#productos">Ver planes y suscribirse</a></div></div></nav>
 <header class="hero"><div class="in grid">
  <div class="min">
   <p class="eyebrow">Historia clínica electrónica · Colombia</p>
   <h1 class="mt">La historia clínica, la agenda y la facturación de tu IPS en un solo lugar.</h1>
   <p class="lead">HiSalud conecta al paciente, la consulta, las órdenes, el consentimiento y la factura. Calcula la cuota moderadora o el copago, y deja listo el RIPS en JSON. Para consultorios y clínicas de medicina general, odontología y hospitalización.</p>
-  <div class="row"><a class="btn" href="https://demo.biopathsentinel.online/registro" target="_blank" rel="noopener">Solicitar una demostración</a><a class="btn out" href="#recorrido">Ver cómo funciona</a></div>
+  <div class="row"><a class="btn go" href="https://biopathsentinel.org/#productos">Ver planes y suscribirse</a><a class="btn" href="https://demo.biopathsentinel.org/registro" target="_blank" rel="noopener">Solicitar una demostración</a><a class="btn out" href="#recorrido">Ver cómo funciona</a></div>
   <p class="fine">La demo usa datos ficticios. Solo necesitas un correo para entrar.</p>
  </div>
  <div class="calc min" aria-label="Ejemplo de cálculo de cuota moderadora">
@@ -138,7 +140,6 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
   <p class="sample">Paciente, valores y tarifas de ejemplo.</p>
  </div>
 </div></header>
-
 <section class="band alt"><div class="in">
  <div class="head"><p class="eyebrow">El problema</p><h2>Cuando cada área usa su propia herramienta, el paciente se repite en todas.</h2></div>
  <div class="mods">
@@ -148,7 +149,6 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
   <div class="mod"><h3>Consentimientos en carpetas</h3><p>Firmados en papel y sin trazabilidad, o ausentes cuando se necesitan.</p></div>
  </div>
 </div></section>
-
 <section class="band deep" id="recorrido"><div class="in">
  <div class="head"><p class="eyebrow" style="color:#7fd6de">Recorrido de una atención</p><h2>Un paciente, una historia, del registro a la factura.</h2><p class="lead">Cada paso usa lo que ya se registró en el anterior.</p></div>
  <ol class="flow">
@@ -162,7 +162,6 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
   <li><i>PACIENTE</i><b>Portal</b><span>El paciente consulta sus citas, notas firmadas y, en odontología, su plan y procedimientos.</span></li>
  </ol>
 </div></section>
-
 <section class="band" id="modulos"><div class="in">
  <div class="head"><p class="eyebrow">Módulos</p><h2>Lo que incluye, en una sola plataforma.</h2></div>
  <div class="mods">
@@ -180,7 +179,6 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
   <div class="mod"><h3>Catálogos oficiales</h3><p>CIE-10, CUPS, medicamentos (CUMS e IUM) y división político-administrativa (DIVIPOLA). Se elige de la lista, sin escribir códigos a mano.</p><span class="k">CIE-10 · CUPS · CUMS · IUM</span></div>
  </div>
 </div></section>
-
 <section class="band alt" id="normativa"><div class="in">
  <div class="head"><p class="eyebrow">Normativa, sin letra pequeña</p><h2>Qué hace HiSalud y qué sigue haciendo tu IPS.</h2><p class="lead">Preferimos decirte desde el principio dónde termina el software, para que puedas planear tu operación.</p></div>
  <div class="two">
@@ -201,7 +199,6 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
    <li>Cumplir las obligaciones de habilitación y de tratamiento de datos de tu institución.</li></ul></div>
  </div>
 </div></section>
-
 <section class="band"><div class="in">
  <div class="head"><p class="eyebrow">Roles</p><h2>Cada persona ve lo que le corresponde.</h2></div>
  <div class="tw"><table>
@@ -216,17 +213,16 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
  </table></div>
  <p class="fine">Resumen de las funciones principales. El detalle completo se muestra en la demostración.</p>
 </div></section>
-
 <section class="band alt" id="planes"><div class="in">
- <div class="head"><p class="eyebrow">Planes · BioPath HCE Enterprise</p><h2>Un precio mensual según el tamaño de tu equipo.</h2><p class="lead">Precios en pesos colombianos por mes. Los tres planes incluyen los módulos de la plataforma; Hospitalización va solo en el plan Hospital / clínica grande. Antes de suscribirte puedes pedir la demostración.</p></div>
+ <div class="head"><p class="eyebrow">Planes · BioPath HCE Enterprise</p><h2>Un precio mensual según el tamaño de tu equipo.</h2><p class="lead">Precios en pesos colombianos por mes. Los cuatro planes incluyen los módulos de la plataforma; Hospitalización va solo en el plan Hospital / clínica grande. Antes de suscribirte puedes pedir la demostración.</p></div>
  <div class="plans">
-  <div class="plan"><h3>Clínica pequeña</h3><p class="pr">$1.000.000 <small>COP / mes</small></p><ul><li>Hasta 5 usuarios</li></ul><a class="btn out" href="https://payco.link/df9f7104-89c2-48a2-989a-14fdf97d5d22" target="_blank" rel="noopener">Suscribirse</a></div>
-  <div class="plan hl"><span class="eyebrow">Más popular</span><h3>Clínica mediana</h3><p class="pr">$1.500.000 <small>COP / mes</small></p><ul><li>Hasta 15 usuarios</li></ul><a class="btn" href="https://payco.link/f2cd3659-18ac-4825-a72b-9a8871cfb59d" target="_blank" rel="noopener">Suscribirse</a></div>
+  <div class="plan"><h3>Consultorio</h3><p class="pr">$300.000 <small>COP / mes</small></p><ul><li>Hasta 2 usuarios</li><li>Ideal para médicos independientes</li></ul><span class="btn out off" aria-disabled="true">Disponible pronto</span></div>
+  <div class="plan"><h3>Clínica pequeña</h3><p class="pr">$1.000.000 <small>COP / mes</small></p><ul><li>Hasta 7 usuarios</li></ul><a class="btn out" href="https://payco.link/df9f7104-89c2-48a2-989a-14fdf97d5d22" target="_blank" rel="noopener">Suscribirse</a></div>
+  <div class="plan hl"><span class="eyebrow">Más popular</span><h3>Clínica mediana</h3><p class="pr">$1.500.000 <small>COP / mes</small></p><ul><li>Usuarios ilimitados</li></ul><a class="btn" href="https://payco.link/f2cd3659-18ac-4825-a72b-9a8871cfb59d" target="_blank" rel="noopener">Suscribirse</a></div>
   <div class="plan"><h3>Hospital / clínica grande</h3><p class="pr">$1.800.000 <small>COP / mes</small></p><ul><li>Usuarios ilimitados</li><li>Incluye módulo de Hospitalización</li></ul><a class="btn out" href="https://payco.link/b0cccf0c-7b58-446c-abff-bc534ff0bf0b" target="_blank" rel="noopener">Suscribirse</a></div>
  </div>
- <p class="fine">¿Prefieres verlo antes? <a href="https://demo.biopathsentinel.online/registro" target="_blank" rel="noopener">Solicita la demostración</a>. ¿Ya tienes cuenta? <a href="https://hisalud-clinic-v3.biopathsentinel.online/" target="_blank" rel="noopener">Entrar a HCE Enterprise</a>.</p>
+ <p class="fine">¿Prefieres verlo antes? <a href="https://demo.biopathsentinel.org/registro" target="_blank" rel="noopener">Solicita la demostración</a>. Al suscribirte, el enlace de acceso a tu clínica llega a tu correo: verifícalo bien al pagar.</p>
 </div></section>
-
 <section class="band" id="diabetes"><div class="in">
  <div class="head"><p class="eyebrow">Tamizaje predictivo</p><h2>HiSalud Diabetes</h2><p class="lead">Asistente de tamizaje de riesgo diabético con inteligencia artificial. Ingresas los factores clave, obtienes una estimación estadística del riesgo y guardas el historial de tu clínica y lo descargas cuando quieras. Es una herramienta de apoyo: no diagnostica ni reemplaza el criterio del profesional.</p></div>
  <div class="plans two-plans">
@@ -235,13 +231,11 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
  </div>
  <p class="fine">¿Ya tienes cuenta? <a href="https://diabetes2-clinic.biopathsentinel.online/" target="_blank" rel="noopener">Entrar a HiSalud Diabetes</a>.</p>
 </div></section>
-
 <section class="band alt"><div class="in">
  <div class="head"><p class="eyebrow">Ecosistema BioPath</p><h2>Más herramientas, de acceso libre.</h2><p class="lead">BioPath Sentinel AI es un portal informativo y gratuito de vigilancia genómica y salud pública, con BioWater (calidad del agua) y WaterNor (alerta temprana de norovirus). No requiere suscripción.</p></div>
- <div class="row"><a class="btn out" href="https://biopath.biopathsentinel.online/" target="_blank" rel="noopener">BioPath Sentinel AI</a><a class="btn out" href="https://biowater.biopathsentinel.online/" target="_blank" rel="noopener">BioWater</a><a class="btn out" href="https://waternor.biopathsentinel.online/" target="_blank" rel="noopener">WaterNor</a></div>
+ <div class="row"><a class="btn out" href="https://biopath.biopathsentinel.org/" target="_blank" rel="noopener">BioPath Sentinel AI</a><a class="btn out" href="https://biowater.biopathsentinel.org/" target="_blank" rel="noopener">BioWater</a><a class="btn out" href="https://waternor.biopathsentinel.org/" target="_blank" rel="noopener">WaterNor</a></div>
  <p class="fine">Próximamente: HiSalud Hipertensión y HiSalud Metabólica.</p>
 </div></section>
-
 <section class="band"><div class="in">
  <div class="head"><p class="eyebrow">Preguntas frecuentes</p><h2>Lo que suelen preguntar antes de empezar.</h2></div>
  <div style="max-width:780px">
@@ -255,13 +249,11 @@ footer{padding-block:34px;font-size:.88rem;color:var(--mut);border-top:1px solid
   <details><summary>¿Puedo probarlo antes de decidir?</summary><p>Sí. Solicita la demostración con tu correo, crea tu usuario y explora una clínica con datos ficticios. No registres información de pacientes reales en la demo.</p></details>
  </div>
 </div></section>
-
 <section class="band deep"><div class="in cta">
  <h2>Mira HiSalud con el caso de tu clínica.</h2>
  <p class="lead" style="margin:14px 0 26px">Solicita la demostración, entra a la zona privada con tu usuario y te contactamos para acordar el horario.</p>
- <div class="row"><a class="btn" href="https://demo.biopathsentinel.online/registro" target="_blank" rel="noopener">Solicitar demostración</a><span>o escríbenos a <b>biopathsentinel@gmail.com</b></span></div>
+ <div class="row"><a class="btn" href="https://demo.biopathsentinel.org/registro" target="_blank" rel="noopener">Solicitar demostración</a><span>o escríbenos a <b>biopathsentinel@gmail.com</b></span></div>
 </div></section>
-
 <footer><div class="in">© 2026 BioPath-Sentinel AI · Santa Marta, Colombia · biopathsentinel@gmail.com. HiSalud es una herramienta de apoyo y gestión clínica; no reemplaza el criterio del profesional de salud. Los valores y datos mostrados en esta página son ejemplos.</div></footer>
- 
+
 .
